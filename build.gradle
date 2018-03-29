@@ -11,7 +11,7 @@ buildscript {
 }
 
 version "0.1"
-group "grailsbasic"
+group "grailsbasics"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -62,12 +62,9 @@ dependencies {
 }
 
 bootRun {
-
 //    jvmArgs('-Dspring.output.ansi.enabled=always')
-    jvmArgs = ['-Dlocal.config.location=externalConfig.yml']
-
+    jvmArgs = ['-Dlocal.config.location=externalConfig']
     addResources = true
-
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }

@@ -6,7 +6,6 @@ class BootStrap {
 
     def init = { servletContext ->
 
-
         println " My File Name: ${grailsApplication.config.getProperty('name.of.file')}"
     }
     def destroy = {
