@@ -4,21 +4,21 @@ import co.linksharing.SearchCO
 
 class UserController {
 
-//    def index() {
-//        if (session.user)
-//            forward(controller: 'user', action: 'index')
-//        else {
-//            if (!flash.error)
-//                render("User not found")
-//        }
-//    }
-
-    def index(SearchCO searchCO) {
-
-        render(session.user.userName)
-
-        render session.user.getUnreadResource(searchCO)
+    def index() {
+        if (session.user)
+            render(view: 'index')
+        else {
+            if (!flash.error)
+                render("User not found")
+        }
     }
+
+//    def index(SearchCO searchCO) {
+//
+//        render(session.user.userName)
+//
+//        render session.user.getUnreadResource(searchCO)
+//    }
     def logout() {
         session.invalidate()
         redirect(action: 'index')

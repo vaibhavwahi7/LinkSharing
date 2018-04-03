@@ -9,6 +9,7 @@ class TopicVO {
     String name
     Visibility visibility
     Integer count
-    User createdBy
+    Integer createdById
+    String createdByName
 
 }

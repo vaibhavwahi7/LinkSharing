@@ -36,12 +36,22 @@ class TopicController {
         }
     }
 
+    def getTrendingTopic(){
+        Topic.getTrendingTopics();
+    }
+
+
     def save(Topic topic) {
-        if (topic.save()) {
-            render("saved Successfully")
-        } else {
-            flash.error = "Error"
+        topic.createdBy=session.user
+        if(topic.save()){
+            flash.message="Saved"
+
         }
+        else{
+            flash.error="Error"
+
+        }
+        forward(controller:'user', action: 'index')
 
     }
 
