@@ -12,6 +12,7 @@ class BootStrap {
         createReadingItems()
         createdByresourceRating()
 
+
     }
 
 

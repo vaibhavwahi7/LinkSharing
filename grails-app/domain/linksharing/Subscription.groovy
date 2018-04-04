@@ -22,4 +22,12 @@ class Subscription {
         seriousness(nullable: false)
     }
 
+    def showUser()
+    {
+        List<User> userList=[]
+        this.user.each {
+            userList.add(it.userName)
+        }
+    }
+
 }

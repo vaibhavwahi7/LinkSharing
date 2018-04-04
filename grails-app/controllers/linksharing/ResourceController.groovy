@@ -47,4 +47,9 @@ class ResourceController {
         println ("${session.user.getUnreadResource(searchCO)}")
         render(ratingInfoVO.averagescore)
     }
+
+    def showTopPost(){
+        List<Resource> resources = Resource.topPost()
+        render("Top Post --- ${resources.id}")
+    }
 }

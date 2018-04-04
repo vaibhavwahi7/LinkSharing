@@ -44,6 +44,15 @@ class UserController {
 
 
     }
+    def getSubscribedTopic()
+    {
+        User.getSubscribedTopic()
+    }
+
+
+    def forgotPass() {
+
+    }
 }
 
 

@@ -2,8 +2,10 @@ package linksharing
 
 import co.linksharing.SearchCO
 import com.sun.org.apache.xpath.internal.operations.Bool
+import viewObject.linksharing.TopicVO
 
 import javax.naming.ldap.SortKey
+import javax.persistence.criteria.JoinType
 import java.beans.Transient
 
 class User {
@@ -24,7 +26,8 @@ class User {
     static mapping = { sort id: 'desc' }
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItem: ReadingItem, resources: Resource, resourceRating: ResourceRating]
-    static transients = ['name']
+    static transients = ['name', 'subscribedTopic']
+
     static constraints = {
 
         email(nullable: false, unique: true, email: true, blank: false)
@@ -37,14 +40,29 @@ class User {
         userName(nullable: true, unique: true)
 
     }
-    List getUnreadResource(SearchCO searchCO){
 
-        if(searchCO.q){
-            List<ReadingItem> unReadItems= ReadingItem.createCriteria().list(max:10,offset:0){
-                ilike('resource.description',this.resources.description)
-                eq('isRead',false)
+
+    List getUnreadResource(SearchCO searchCO) {
+
+        if (searchCO.q) {
+            List<ReadingItem> unReadItems = ReadingItem.createCriteria().list(max: 10, offset: 0) {
+                ilike('resource.description', this.resources.description)
+                eq('isRead', false)
             }
-            return  unReadItems
+            return unReadItems
         }
+
+    }
+//Question13. Create transient method in user domain getSubscribedTopic to get only subscribed topics of user,
+//            this method will be used in user dashboard and dropdown of linkresource create
+//            and email invite of topic.
+
+
+    List getSubscribedTopic() {
+        List<Topic> topicList = []
+        this.subscriptions.each {
+            topicList.add(it.topic)
+        }
+        return topicList
     }
 }

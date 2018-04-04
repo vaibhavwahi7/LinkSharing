@@ -4,10 +4,10 @@ import co.linksharing.ResourceSearchCo
 class TopicController {
 
     def index() {
-
+render(view: "index")
     }
 
-    //Q3.
+
 
 //    def show(ResourceSearchCo resourceSearchCO){
 //        def topic = Resource.search(resourceSearchCO).list()
@@ -15,12 +15,15 @@ class TopicController {
 //        User user=User.read(session.user.id)
 //        render(user.topics)
 //    }
+
+
+    
+
     def show(ResourceSearchCo resourceSearchCO){
-        def topic = Resource.search(resourceSearchCO).list()
-        render("CreatedBy- $topic.createdby.firstname Topicname- $topic.name")
-        User user=User.read(session.user.id)
-        //println user.topics
-        render(user.topics)
+
+        List<Resource> resources=Resource.search(resourceSearchCO).list()
+        render("Resources are ${resources.id}")
+
     }
 
 
@@ -37,19 +40,36 @@ class TopicController {
     }
 
     def getTrendingTopic(){
-        Topic.getTrendingTopics();
+        Topic.getTrendingTopics()
     }
 
 
-    def save(Topic topic) {
+
+    //Question 8  Implement topic/save and linkresource/save save action.
+    //            Topic, linkresource save should set errors in flash and
+    //            user should redirected to the dashboard, successful save should set flash.message.
+
+
+    def save(String text,String visibility){
+        Topic topic=new Topic()
+
+        topic.name=text
+        if(visibility=="public"){
+            topic.visibility=Visibility.PUBLIC
+        }
+        else
+        if(visibility=="private") {
+            topic.visibility=Visibility.PRIVATE
+
+        }
         topic.createdBy=session.user
         if(topic.save()){
             flash.message="Saved"
 
         }
-        else{
-            flash.error="Error"
-
+        else
+        {
+            render(view:'error')
         }
         forward(controller:'user', action: 'index')
 

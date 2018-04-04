@@ -22,7 +22,13 @@ class Topic {
         visibility(nullable: false)
         createdBy(nullable: false)
     }
-    static List<TopicVO> getTrendingTopics(){
+
+    //Question11. Create static method in topic to get trending topic which will be used
+    //            on user dashboard as well as resource show action
+
+    //Question12:Add createdBy in topicVO so that createdBy can be shown in trending topic
+    //           list on UI
+    static List<TopicVO> getTrendingTopics() {
         List topicList = Resource.createCriteria().list {
             projections {
                 createAlias('topic', 't')
@@ -32,26 +38,14 @@ class Topic {
                 count('t.id', 'topicCount')
                 property('t.createdBy')
             }
-            eq('t.visibility',Visibility.PUBLIC)
+            eq('t.visibility', Visibility.PUBLIC)
             order('topicCount', 'desc')
             order('t.name', 'asc')
             maxResults(5)
         }
-        //  return topics
-
-
-        List topicVOList = []
-        topicList.each {
-
-            topicVOList.add(new TopicVO(id: it[0], name: it[1], visibility: it[2], count: it[3], createdBy: it[4]))
-
-
-        }
-        return topicVOList
-
-
-
+        return topicList
     }
-
+//Question18. Create transient method getSubscribedUsers in topic domain to get all the
+//            subscribed users
 
 }
