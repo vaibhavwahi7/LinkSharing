@@ -36,14 +36,19 @@ class Topic {
                 property('t.name')
                 property('t.visibility')
                 count('t.id', 'topicCount')
-                property('t.createdBy')
+
             }
             eq('t.visibility', Visibility.PUBLIC)
             order('topicCount', 'desc')
             order('t.name', 'asc')
             maxResults(5)
         }
-        return topicList
+        List topicList1 = []
+        topicList.each {
+            topicList1.add(new TopicVO(id: it[0], name: it[1], visibility: it[2], count: it[3]))
+        }
+        println(topicList1)
+        return topicList1
     }
 //Question18. Create transient method getSubscribedUsers in topic domain to get all the
 //            subscribed users

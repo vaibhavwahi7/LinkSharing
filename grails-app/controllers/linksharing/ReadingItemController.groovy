@@ -2,12 +2,19 @@ package linksharing
 
 class ReadingItemController {
 
-    def index() { }
-    def changeIsRead(Long id,Boolean isRead){
-        if(ReadingItem.executeUpdate([isRead:isRead,id:id])==0){
-            render("error")
+    def index() {}
+
+
+    def changeIsRead() {
+        Resource resource = Resource.get(params.id)
+        ReadingItem readingItem = ReadingItem.findByResourceAndUser(resource, session.user)
+        if (readingItem) {
+            readingItem.isRead = false
+            readingItem.save()
+        } else {
+            new ReadingItem(user: session.user, resource: resource, isRead: true).save()
+
         }
-        else
-            render("success")
+        render(view: "/resource/search")
     }
 }

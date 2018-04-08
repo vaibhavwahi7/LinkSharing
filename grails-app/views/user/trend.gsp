@@ -10,18 +10,25 @@
 
 </head>
 
-
 <body>
 <div class="row">
-    <div class="col-sm-12">
-        <div class="col-sm-6">
-            <g:render template="profile"/>
+    <div class="container col-sm-12">
+        <div class="col-sm-5">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        TrendingPost
+                    </h3>
+                </div>
+
+
+                <g:render template="/user/trendingTopic" var="po" collection="topic1"></g:render>
+
+            </div>
         </div>
-
-        <g:render template="post"/>
-
     </div>
 </div>
-
 </body>
 </html>

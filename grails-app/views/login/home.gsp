@@ -13,19 +13,35 @@
 <body>
 <div class="row">
     <div class="container col-sm-12">
-        <div class="col-sm-5">
 
+        <div class="col-sm-6">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        TrendingTopic.
+                        Top Post
                     </h3>
                 </div>
-                %{--<g:render template="userLogin"></g:render>--}%
-                <g:render template="/user/trendingTopic" var="trend" collection="${topic}"></g:render>
 
-                %{--<g:render template="/topic/show" var="top1" collection="${resources}"></g:render>--}%
-                %{--<ls:top></ls:top>--}%
+                <div class="panel-body">
+
+                    <g:render template="/login/recentshares2" var="po" collection="${resources1}"/>
+                    %{--<g:render template="/login/recentshares2" var="res" collection="${resource}"/>--}%
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <g:render template="login"></g:render>
+
+            <div>
+                <g:render template="/register/registermain"></g:render>
+            </div>
+
+        </div>
+        %{--<g:render template="recentShares"></g:render>--}%
+    </div>
+</div>
 </body>
 </html>

@@ -3,8 +3,7 @@ package linksharing
 
 class LoginCheckInterceptor {
 
-    LoginCheckInterceptor()
-    {
+    LoginCheckInterceptor() {
         matchAll().except(controller: 'login')
     }
 
@@ -12,7 +11,7 @@ class LoginCheckInterceptor {
         if (!session.user) {
 
             redirect(controller: 'login', action: 'index')
-                return false
+            return false
         }
         return true
     }

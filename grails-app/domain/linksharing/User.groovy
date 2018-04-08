@@ -16,7 +16,7 @@ class User {
     String confirmPassword
     String firstName
     String lastName
-    Byte photo
+    byte[] photo
     Boolean admin
     Boolean active
     Date dateCreated
@@ -65,4 +65,5 @@ class User {
         }
         return topicList
     }
+
 }

@@ -4,6 +4,6 @@ class DemoController {
 
     def index() {
 
-render (view: "main")
+        render(view: "main")
     }
 }

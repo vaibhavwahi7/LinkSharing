@@ -12,16 +12,7 @@
 
 
 <body>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="col-sm-6">
-            <g:render template="profile"/>
-        </div>
-
-        <g:render template="post"/>
-
-    </div>
-</div>
-
+<g:render template="show" var="res" collection="${topics}"/>
+<g:render template="showUser" var="usr" collection="${res}"/>
 </body>
 </html>
