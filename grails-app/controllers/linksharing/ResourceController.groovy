@@ -7,16 +7,18 @@ import viewObject.linksharing.RatingInfoVo
 
 class ResourceController {
 
-    def index() {}
+    def index() {
+
+    }
 
     def delete(Integer id) {
         Resource resource = Resource.load(id)
 
     }
 
-    def objectNotFound(Exception e) {
-        render "object not found handled"
-    }
+//    def objectNotFound(Exception e) {
+//        render "object not found handled"
+//    }
 
     def search(){
         ResourceSearchCo resourceSearchCO=new ResourceSearchCo()
@@ -48,8 +50,39 @@ class ResourceController {
         render(ratingInfoVO.averagescore)
     }
 
-    def showTopPost(){
-        List<Resource> resources = Resource.topPost()
-        render("Top Post --- ${resources.id}")
+//    def showTopPost(){
+//        List<Resource> resources = Resource.topPost()
+////        render("Vaibhav --- ${resources}")
+//        render ( view: '/login/index', model: [resources1:resources])
+//    }
+
+
+    static List<Resource> showPost() {
+
+        List resourceIds = ResourceRating.createCriteria().list {
+            projections {
+                property('resource.id')
+            }
+            maxResults(4)
+        }
+        List<Resource> resources = Resource.getAll(resourceIds)
+        return resources
     }
+
+    def changeIsRead() {
+        Resource resource = Resource.get(params.id)
+println params.id
+        println "======================a"
+        ReadingItem readingItem = ReadingItem.findByResource(resource)
+        if (readingItem) {
+            readingItem.isRead = false
+            readingItem.save()
+            println "======================b"
+        } else {
+            new ReadingItem(resource: resource, isRead: true).save()
+
+        }
+        render(view: "/resource/index")
+    }
+
 }

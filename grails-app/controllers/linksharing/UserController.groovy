@@ -1,13 +1,20 @@
 package linksharing
 
 import co.linksharing.SearchCO
+import viewObject.linksharing.TopicVO
 
 class UserController {
 
     def index() {
-        if (session.user)
-            render(view: 'index')
-        else {
+        if (session.user) {
+
+
+            List<TopicVO> topicVO =Topic.getTrendingTopics()
+            render ( view: '/user/index',model:[topic:topicVO])
+
+
+        }
+            else {
             if (!flash.error)
                 render("User not found")
         }

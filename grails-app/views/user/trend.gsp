@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: vaibhav
-  Date: 3/4/18
-  Time: 12:44 PM
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -18,9 +11,28 @@
 </head>
 
 <body>
-<div class="container col-sm-12" >
-    <div class="row">
-<g:render template="forgotPassword"></g:render>
+<div class="row">
+    <div class="container col-sm-12">
+        <div class="col-sm-5">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        TrendingPost
+                    </h3>
+                </div>
+
+
+        <g:render template="/user/trendingTopic" var ="po" collection="topic1"></g:render>
+
+
+
+
+
+
+    </div>
+        </div>
     </div>
 </div>
 </body>

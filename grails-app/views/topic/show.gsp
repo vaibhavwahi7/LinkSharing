@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: vaibhav
-  Date: 3/4/18
-  Time: 12:44 PM
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -17,11 +10,10 @@
 
 </head>
 
+
+
 <body>
-<div class="container col-sm-12" >
-    <div class="row">
-<g:render template="forgotPassword"></g:render>
-    </div>
-</div>
+<g:render template="show" var="res" collection="${topics}"/>
+<g:render template="showUser" var="usr" collection="${res}"/>
 </body>
 </html>

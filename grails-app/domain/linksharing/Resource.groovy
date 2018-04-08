@@ -4,6 +4,8 @@ package linksharing
 import co.linksharing.ResourceSearchCo
 import viewObject.linksharing.RatingInfoVo
 
+import javax.annotation.Resources
+
 
 abstract class Resource {
 
@@ -15,7 +17,7 @@ abstract class Resource {
     RatingInfoVo ratingInfoVO
 
     static transients = ['ratingInfoVO']
-    static hasMany = [ratings: ResourceRating, readingItem: ReadingItem]
+    static hasMany = [resourceRatings: ResourceRating, readingItem: ReadingItem]
     static belongsTo = [user: User, topic: Topic]
     static mapping = {
         description sqlType: "text"
@@ -33,6 +35,9 @@ abstract class Resource {
 
         }
     }
+
+
+
 
     Integer totalVotes(Resource resource) {
         Integer votes = ResourceRating.createCriteria().count() {
@@ -75,7 +80,7 @@ abstract class Resource {
         return ratingInfoVO1
 }
 
-    List<Resource> topPost(){
+    static List<Resource> topPost(){
 
         List resourceIds = ResourceRating.createCriteria().list {
             projections {
@@ -84,15 +89,23 @@ abstract class Resource {
             groupProperty('resource.id')
             count('resource.id', 'resourceCount')
             order('resourceCount', 'desc')
-            maxResults(5)
+            maxResults(4)
         }
 
         List<Resource> resources = Resource.getAll(resourceIds)
         return resources
-
-
-
     }
+
+    static List<Resource> getPosts(User user) {
+        List<Resource> resourceList = Resource.createCriteria().list {
+            eq("user", user)
+        }
+        println resourceList
+        println("==========================")
+        return resourceList
+    }
+
+
 
 
 }
