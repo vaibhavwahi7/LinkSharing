@@ -17,7 +17,7 @@ class Cust_TagLib {
         ReadingItem readingItem = ReadingItem.findByResource(resource)
 
         String value = ""
-        if (readingItem && readingItem?.isRead) {
+        if  (readingItem && readingItem?.isRead) {
             value = "Mark As Unread"
         } else {
             value = "Mark As Read"
