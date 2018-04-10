@@ -20,20 +20,20 @@ class BootStrap {
 
         final def pass = DefaultPassword.password
 
-            User admin = new User(email: "vd@gmail.com", password: pass, firstName: "vd", lastName: "indee", userName: 'vdindee', admin: true, active: true)
-            admin.validate()
-            log.error("error: ${admin.errors.getAllErrors()}")
-            admin.save(flush: true)
-            if (admin.errors.hasErrors() == false)
-                log.info("Admin Saved Successfully")
+        User admin = new User(email: "vd@gmail.com", password: pass, firstName: "vd", lastName: "indee", userName: 'vdindee', admin: true, active: true)
+        admin.validate()
+        log.error("error: ${admin.errors.getAllErrors()}")
+        admin.save(flush: true)
+        if (admin.errors.hasErrors() == false)
+            log.info("Admin Saved Successfully")
 
 
-            User normal = new User(email: "vaibhav@gmail.com", password: pass, firstName: "vaibhav", lastName: "wahi", userName: 'vaibhav', admin: false, active: true)
-            normal.validate()
-            log.error("error: ${normal.errors.getFieldErrors()}")
-            normal.save(flush: true)
-            if (normal.errors.hasErrors() == false)
-                log.info("Normal User Saved Successfully")
+        User normal = new User(email: "vaibhav@gmail.com", password: pass, firstName: "vaibhav", lastName: "wahi", userName: 'vaibhav', admin: false, active: true)
+        normal.validate()
+        log.error("error: ${normal.errors.getFieldErrors()}")
+        normal.save(flush: true)
+        if (normal.errors.hasErrors() == false)
+            log.info("Normal User Saved Successfully")
 
 
     }
@@ -90,26 +90,25 @@ class BootStrap {
     void createResource() {
 
 
-            List<Topic> topics = Topic.getAll()
+        List<Topic> topics = Topic.getAll()
 
-            topics.each {
-                Resource resource = new LinkResource(url: "https://www.google.com", description: "This is AngularJS", user: it.createdBy, topic: it)
-                resource.validate()
-                log.error("Resource Error: ${resource.errors.allErrors}")
-                resource.save()
-                Resource resource1 = new LinkResource(url: "https://www.yahoo.com", user: it.createdBy, description: "This is Big Data", topic: it)
-                resource1.validate()
-                log.error("Resource Error: ${resource1.errors.allErrors}")
-                resource1.save()
-                Resource resource2 = new DocumentResource(filePath: "adadf", description: "This is Java}", user: it.createdBy, topic: it)
-                resource2.validate()
-                log.error("Resource Error: ${resource2.errors.allErrors}")
-                resource2.save()
-                Resource resource3 = new DocumentResource(filePath: "asda", description: "${"This is node JS"}", user: it.createdBy, topic: it)
-                resource3.validate()
-                log.error("Resource Error: ${resource3.errors.allErrors}")
-                resource3.save()
-
+        topics.each {
+            Resource resource = new LinkResource(url: "https://www.google.com", description: "This is AngularJS", user: it.createdBy, topic: it)
+            resource.validate()
+            log.error("Resource Error: ${resource.errors.allErrors}")
+            resource.save()
+            Resource resource1 = new LinkResource(url: "https://www.yahoo.com", user: it.createdBy, description: "This is Big Data", topic: it)
+            resource1.validate()
+            log.error("Resource Error: ${resource1.errors.allErrors}")
+            resource1.save()
+            Resource resource2 = new DocumentResource(filePath: "adadf", description: "This is Java}", user: it.createdBy, topic: it)
+            resource2.validate()
+            log.error("Resource Error: ${resource2.errors.allErrors}")
+            resource2.save()
+            Resource resource3 = new DocumentResource(filePath: "asda", description: "${"This is node JS"}", user: it.createdBy, topic: it)
+            resource3.validate()
+            log.error("Resource Error: ${resource3.errors.allErrors}")
+            resource3.save()
 
 
         }
@@ -144,24 +143,18 @@ class BootStrap {
     def createReadingItems() {
 
         List<User> userList = User.findAll()
+        List<Resource> resourceList = Resource.findAll()
         userList.each {
-            List<Resource> resourceList = Resource.findAll()
             User user = it
             resourceList.each {
-
                 Topic topic = it.topic
                 if (topic.createdBy != user && it.user != user) {
-
                     ReadingItem readingItem = new ReadingItem(user: user, isRead: true, resource: it)
-                    if (!readingItem.save(flush: true)) {
-                        log.error("Error while saving : $readingItem")
-                    } else {
-                        log.info("Saved Succesfully: $readingItem")
-                        user.addToReadingItem(readingItem)
-                    }
+                    user.addToReadingItem(readingItem)
                 }
             }
         }
+        User.saveAll(userList)
 
     }
 

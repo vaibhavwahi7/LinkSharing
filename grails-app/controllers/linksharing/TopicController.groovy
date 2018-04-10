@@ -25,7 +25,7 @@ class TopicController {
 //    }
 
     List<Resource> show(Long id) {
-        List<Topic> topic = Topic.findAllById(id)
+        Topic topic = Topic.findById(id)
         List<Resource> resources = Resource.findAllById(id)
         render(view: "show", model: [topics: topic, res: resources])
     }
@@ -73,6 +73,40 @@ class TopicController {
 
 
     }
+
+    def topicIs()
+    {
+        String topic=Topic.isPublic(session.user.id)
+        render topic
+    }
+
+    def viewedBy()
+    {
+        String topic=Topic.isPublic(session.user.id)
+        if(topic.equals("PUBLIC")&&(session.user.admin.toString()==("true")))
+        {
+        }
+        else
+        if(topic.equals("PUBLIC")&&(session.user.admin.toString()==("false")))
+        {
+            render ("You are public")
+        }
+        else
+        if(topic.equals("PRIVATE")&&(session.user.admin.toString().equals("true")))
+        {
+            render ("You are private")
+        }
+        else
+        if(topic.equals("PRIVATE")&&(session.user.admin.toString().equals("false")))
+        {
+            render ("You haven't got the proper rights to access the topic")
+        }
+
+        render topic
+
+    }
+
+
 
 
 }

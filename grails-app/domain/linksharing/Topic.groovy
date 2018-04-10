@@ -53,4 +53,27 @@ class Topic {
 //Question18. Create transient method getSubscribedUsers in topic domain to get all the
 //            subscribed users
 
+
+    static isPublic(Long id)
+    {
+        Topic topic=Topic.get(id)
+        if(topic.visibility.toString().equals("Public"))
+        {
+            return (topic.visibility.toString())
+        }
+        else
+        {
+            return (topic.visibility.toString())
+        }
+    }
+
+    List<User> getSubscribedUsers() {
+        Subscription.createCriteria().list {
+            projections {
+                property('user')
+            }
+            eq('topic.id', this.id)
+        }
+    }
+
 }

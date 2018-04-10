@@ -1,6 +1,6 @@
 package linksharing
 
-class LinkResourceController {
+class LinkResourceController extends ResourceController{
 
     def index() {}
 
@@ -9,15 +9,31 @@ class LinkResourceController {
 //            user should redirected to the dashboard, successful save should set flash.message.
 
 
-    def save(Topic topic) {
-        topic.createdBy = session.user
-        if (topic.save()) {
-            flash.message = "Saved"
-
+    def save(LinkResource resource) {
+        User user = session.user
+        resource.user = user
+        if (resource.save(flush: true)) {
+            addToReadingItems(resource)
+            flash.message = "Resource saved Successfully"
         } else {
-            flash.error = "Error"
+            flash.error = "Error saving resource"
+        }
+        redirect(controller: "login", action: "index")
+    }
+
+    def saveLink(String link,String description,String topic) {
+        Topic topic1=Topic.findByName(topic)
+        Resource resource=new LinkResource(url:link,description:description,topic:topic1,user:session.user)
+
+        if(resource.save())
+        {
+            render "saved successfully"
+        }
+        else
+        {
 
         }
-        forward(controller: 'user', action: 'index')
+
+
     }
 }

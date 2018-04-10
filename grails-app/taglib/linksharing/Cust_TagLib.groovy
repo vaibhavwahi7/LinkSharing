@@ -7,7 +7,7 @@ import viewObject.linksharing.TopicVO
 class Cust_TagLib {
 // static defaultEncodeAs = [taglib:'html']
 //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
-    static tags = [taglib: 'mark', taglib: 'topic_read', taglib: 'trending', taglib: 'top']
+    static tags = [taglib: 'mark', taglib: 'topic_read', taglib: 'trending', taglib: 'top',taglib:'userImage']
 
     static namespace = 'ls'
 
@@ -96,5 +96,16 @@ class Cust_TagLib {
         List<Resource> resources = Resource.topPost()
         body << resources?.collect { it?.id }
         out << resources
+    }
+
+    def resourceCheck=
+    {attr,body->
+        List<Resource> resources=Resource.get(Resource.class)
+
+    }
+
+    def userImage = { attrs, body ->
+        out << "<img src='${createLink(controller: 'login', action: 'fetchProductImage', params: [userId: attrs.id])}' " +
+                " height='${attrs.height}' width='${attrs.width}'>"
     }
 }

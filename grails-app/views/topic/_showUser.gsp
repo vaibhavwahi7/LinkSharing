@@ -1,3 +1,4 @@
+<%@ page import="linksharing.Resource" %>
 <div class="container col-sm-12">
     <div class="row">
 
@@ -5,7 +6,10 @@
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="col-sm-12">
+
+
+
+    <div class="col-sm-12">
                         <div class="row">
                             <div class="col-sm-3 glyphicon glyphicon-user fa-5x">
                             </div>
@@ -29,6 +33,7 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

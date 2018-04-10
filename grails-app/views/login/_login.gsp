@@ -10,7 +10,7 @@
 
         <g:form controller="login" action="loginHandler" method="POST">
 
-            <label>Enter Username:</label>
+            <label >Enter Username:</label>
             <input class="form-control" type="text" name="userName" placeholder="Enter Your Username">
 
             <label>Enter Password:</label>

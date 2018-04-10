@@ -8,6 +8,9 @@
             </h3>
         </div>
 
+        <div>
+<g:set var="recent" value="${linksharing.Resource.getRecentShares()}"></g:set>
+<g:each in="${recent}" var="itr">
         <div class="panel-body">
 
             <div class="col-sm-12">
@@ -18,13 +21,11 @@
                     </div>
 
                     <div class="col-sm-10">
-                        <span>Uday Pratap Singh &nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">@Uday  5min</small>
-                            <a href="#" class="pull-right">Grails</a>
+                        <span>${itr.user.firstName} ${itr.user.lastName} &nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">@${itr.user.userName} 5min</small>
+                            <a href="#" class="pull-right">${itr.topic.name}</a>
 
                             <p>
-                                lasjbdjb asjbdashj asjkdbjasd djknasndjk asdnasjknd jkasdjjassajkndjskadjkkjksadjknj
-                                adksjnasd jkansjkdnas askdnasjkn m,as dasdjkasjd jknkjjknds asjndnasd jknasjkd jkasndj
-                                askndklkasndjksa
+                                ${itr.description}
                             </p>
                         </span>
 
@@ -40,38 +41,12 @@
             </div>
 
 
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-2 glyphicon glyphicon-user fa-5x">
-                        <!--  <img src="avatar.png" class="img-thumbnail"> -->
 
-                    </div>
-
-                    <div class="col-sm-10">
-                        <span>Uday Pratap Singh &nbsp;&nbsp;&nbsp;&nbsp;<small class="text-muted">@Uday  5min</small>
-                            <a href="#" class="pull-right">Grails</a>
-
-                            <p>
-                                lasjbdjb asjbdashj asjkdbjasd djknasndjk asdnasjknd jkasdjjassajkndjskadjkkjksadjknj
-                                adksjnasd jkansjkdnas askdnasjkn m,as dasdjkasjd jknkjjknds asjndnasd jknasjkd jkasndj
-                                askndklkasndjksa
-                            </p>
-                        </span>
-
-                        <div>
-                            <asset:image src="fb.png"></asset:image>
-                            <asset:image src="twitter.png"></asset:image>
-                            <asset:image src="google-1.png"></asset:image>
-                            <a href="#" class="pull-right">View Post</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
         </div>
+</g:each>
 
     </div>
-
+    </div>
 </div>
 

@@ -66,4 +66,27 @@ class User {
         return topicList
     }
 
+    Integer getScore(Resource resource) {
+        ResourceRating resourceRating =ResourceRating.findByUserAndResource(this, resource: resource)
+        return resourceRating.score
+    }
+
+    static Boolean isSubscribed(Topic topic) {
+        List<User> userList = Subscription.createCriteria().list {
+            projections {
+                property("user")
+            }
+
+            eq("topic", topic)
+        }
+
+
+        if (userList.contains(this)) {
+            true
+        } else
+            false
+        return userList
+    }
+
+
 }

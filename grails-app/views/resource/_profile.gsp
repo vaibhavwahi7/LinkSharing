@@ -2,11 +2,12 @@
     <div class="panel-body">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-3 glyphicon glyphicon-user fa-5x">
-                </div>
+                <ls:userImage id="${session.user.id}" height="50px" width="50px"></ls:userImage>
+                %{--<img src="${createLink(controller: 'login', action: 'fetchProductImage')}" style="width:40px;height:40px"/>--}%
+
 
                 <div class="col-sm-9">
-
+                    <a href="/resource/edit" class="glyphicon glyphicon-edit"></a>
                     <p>${session.user.userName}<br><small class="text-muted">@${session.user.userName}</small></p>
 
                     <div class="row">

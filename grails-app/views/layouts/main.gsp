@@ -50,7 +50,9 @@
             </ul>
         </div>
 
-        <div class="pull-right"><img src="${createLink(controller: 'login', action: 'fetchProductImage')}"/>
+        <div class="pull-right">
+            <ls:userImage id="${session.user.id}" height="40px" width="40px"></ls:userImage>
+            %{--<img src="${createLink(controller: 'login', action: 'fetchProductImage')}" style="width:30px;height:30px "/>--}%
         </div>
 
 
@@ -290,22 +292,24 @@
                                             </div>
                                             <br>
                                         </div>
-
+                                    <g:form controller="linkResource" action="saveLink">
                                         <div class="col-sm-8">
                                             <div>
-                                                <textarea style="width: 100%" placeholder="Link"></textarea>
+                                                <textarea style="width: 100%" placeholder="Link" name="link">
+
+                                                </textarea>
                                             </div>
                                             <br>
 
                                             <div>
-                                                <textarea class="fa-2x" style="width: 100%;height: 100%;"
+                                                <textarea class="fa-2x" style="width: 100%;height: 100%;" name="description"
                                                           placeholder="Description">
                                                 </textarea>
                                             </div>
                                             <br>
 
                                             <div>
-                                                <select style="width: 100%;height: 100%;">
+                                                <select style="width: 100%;height: 100%;" name="topic">
                                                     <g:each in="${session.user.topics.name}"><option>${it}</option></g:each>
 
                                                 </select>
@@ -314,15 +318,14 @@
                                             <br>
 
                                             <div class="col-sm-12">
-                                                <div class="col-sm-6">
-
-                                                    <button class="btn btn-primary">Share</button>
+                                                <div class="col-sm-6"><g:submitButton name="LinkSave" class="btn btn-primary">Save</g:submitButton>
 
                                                     <button class="btn btn-primary pull-right">Cancel</button>
                                                 </div>
                                             </div>
 
                                         </div>
+                                    </g:form>
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +354,6 @@
 
                             <div class="panel">
                                 <div class="panel-body">
-
                                     <div class="col-sm-12">
                                         <div class="col-sm-4">
                                             <div>
@@ -375,9 +377,10 @@
                                         <div class="col-sm-8">
                                             <div>
                                                 <br>
+                                    <g:form controller="documentResource" action="saveDocument">
 
                                                 <div class="input-group">
-                                                    <input type="file" class="custom-file-input" id="inputGroupFile04">
+                                                    <input type="file" name="filePath" class="custom-file-input" id="inputGroupFile04">
                                                 </div>
                                                 <br>
                                             </div>
@@ -385,7 +388,7 @@
 
                                             <div>
                                                 <textarea class="fa-2x" style="width: 100%;height: 100%;"
-                                                          placeholder="Description">
+                                                          placeholder="Description" name="description">
                                                 </textarea>
                                             </div>
                                             <br>
@@ -401,14 +404,15 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-6">
 
-                                                    <button class="btn btn-primary">Share</button>
-
+                                                    <g:submitButton name="submit" class="btn btn-primary">Save</g:submitButton>
+                                    </g:form>
                                                     <button class="btn btn-primary pull-right">Cancel</button>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -459,8 +463,14 @@
 
                                             <div>
                                                 <select style="width: 100%;height: 100%;">
-                                                    <option>Topic</option>
-                                                    <option>Link</option>
+
+                                                    <g:each in="${session.user.topics.name}">
+                                                        <option>${it}</option>
+                                                    </g:each>
+
+
+
+
                                                 </select>
 
                                             </div>

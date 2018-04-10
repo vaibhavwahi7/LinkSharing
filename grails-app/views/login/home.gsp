@@ -29,6 +29,7 @@
                     %{--<g:render template="/login/recentshares2" var="res" collection="${resource}"/>--}%
 
                 </div>
+                <g:render template="recentShares"></g:render>
             </div>
         </div>
 
@@ -40,7 +41,7 @@
             </div>
 
         </div>
-        %{--<g:render template="recentShares"></g:render>--}%
+
     </div>
 </div>
 </body>

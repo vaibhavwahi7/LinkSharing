@@ -1,9 +1,9 @@
 package linksharing
 
-import grails.testing.web.taglib.TagLibUnitTest
+import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class GtunesTaglibTagLibSpec extends Specification implements TagLibUnitTest<GtunesTaglibTagLib> {
+class DocumentResourceControllerSpec extends Specification implements ControllerUnitTest<DocumentResourceController> {
 
     def setup() {
     }

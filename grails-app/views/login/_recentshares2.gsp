@@ -19,10 +19,13 @@
             </span>
 
             <div>
+
                 <asset:image src="fb.png"></asset:image>
                 <asset:image src="twitter.png"></asset:image>
                 <asset:image src="google-1.png"></asset:image>
+
                 <a href="#" class="pull-right">View Post</a>
+
             </div>
 
         </div>

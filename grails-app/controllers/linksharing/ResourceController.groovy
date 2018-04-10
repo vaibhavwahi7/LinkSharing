@@ -16,9 +16,25 @@ class ResourceController {
 
     }
 
-//    def objectNotFound(Exception e) {
-//        render "object not found handled"
-//    }
+    def addToReadingItems(Resource resource) {
+
+        ReadingItem readingItem
+        Topic topic = resource.topic
+        List<User> subscribedUsers = topic.getSubscribedUsers()
+        subscribedUsers.each { user ->
+            if (user.id == resource.user.id) {
+                readingItem = new ReadingItem(user: user, resource: resource, isRead: true)
+            } else {
+                readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
+            }
+            if (readingItem.save(flush: true)) {
+                log.info "ReadingItem added successfully"
+            }
+
+        }
+
+
+    }
 
     def search() {
         ResourceSearchCo resourceSearchCO = new ResourceSearchCo()
@@ -85,4 +101,28 @@ class ResourceController {
         render(view: "/resource/index")
     }
 
+    def check() {
+        Resource resources = Resource.get(session.user.id)
+        String resource = Resource.resourceCheck(session.user.id)
+        String url = resources.url
+        if (resource == "class is LinkResource") {
+            redirect(URL: url)
+        } else {
+            render(URL: url)
+        }
+    }
+
+    def edit() {
+        render(view: '_edit')
+    }
+
+    def getRecentShares() {
+        List<Resource> resources = Resource.getRecentShares()
+        return resources
+    }
+
+    def deleteResource()
+    {
+        log.info "Resource deleted Successfully"
+    }
 }

@@ -103,5 +103,32 @@ abstract class Resource {
         return resourceList
     }
 
+ static String resourceCheck(Long id) {
 
+     Resource resources = Resource.get(id)
+
+     if (resources.class.toString().equals("class linksharing.DocumentResource")) {
+         println resources.class.toString()
+         return "class is DocumentResource"
+
+     } else {
+         println resources.class.toString()
+         return "class is LinkResource"
+     }
+
+ }
+
+    static List<Resource> getRecentShares(){
+
+        List<Resource> recentShares = Resource.createCriteria().list {
+// eq('',Visibility.PUBLIC)
+            order("dateCreated", "desc")
+            maxResults(2)
+
+
+        }
+        println("about to return")
+        println(recentShares)
+        return recentShares
+    }
 }

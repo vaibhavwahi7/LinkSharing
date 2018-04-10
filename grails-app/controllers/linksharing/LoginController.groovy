@@ -7,6 +7,9 @@ class LoginController {
 
         List<Resource> resources = Resource.topPost()
         render(view: '/login/home', model: [resources1: resources])
+    }
+
+
 
 //        if (session.user)
 //            forward(controller: 'user', action: 'index')
@@ -14,7 +17,7 @@ class LoginController {
 //            if(!flash.error)
 //                render("User not found")
 //        }
-    }
+
 
 //    def logout() {
 //        session.invalidate()
@@ -64,10 +67,11 @@ class LoginController {
         user.active = true
         user.photo = file.bytes
         if (user.save()) {
+            session.user = user
+            forward(controller: 'resource', action: 'index')
 
-            render "Successfully changed the password"
-
-        } else {
+        }
+        else {
 
             render(text: "${user.errors.allErrors}")
 //            render flash.error = "User not found"
@@ -84,7 +88,7 @@ class LoginController {
             if (user != null) {
                 user.password = password
                 user.save(true)
-                render "Successfully changed the password"
+                forward(controller: 'resource', view: 'index')
 
             } else {
                 flash.error = "User not found"
@@ -113,5 +117,43 @@ class LoginController {
 //                log.info("Normal User Saved Successfully")
 //        }
 //    }
+
+
+    def editSave(String firstName,String lastName,String userName,String email,Byte[] photo) {
+        User user=User.get(session.user.id)
+
+        if(user){
+        user.admin = false
+        user.active = true
+            user.password=session.user.password
+            user.firstName=firstName
+            user.lastName=lastName
+            user.userName=userName
+            user.email=email
+            user.photo = photo
+
+        if(user.save(flush:true))
+        {
+        render "save"
+        }
+        else
+        {
+        render "not save"
+        }
+        }
+        else{
+        render "user not found"
+        }
+
+
+//TODO: Why it is not working
+
+//        Long userId=session.user.id
+//        def file = params.photo
+//        user.photo = file.bytes
+//        User.executeUpdate("update User set firstName=:firstName,lastName=:lastName,userName=:userName,email=:email ,photo=:photo where id=:userId",[userId:userId,firstName:firstName,lastName:lastName,userName:userName,email:email,photo:photo])
+
+
+    }
 
 }

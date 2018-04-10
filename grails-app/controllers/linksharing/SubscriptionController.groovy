@@ -4,24 +4,27 @@ class SubscriptionController {
 
     def index() {}
 
-    def save(Long id) {
-        Topic topic = Topic.read(id)
+    def save(Integer id) {
+
+        Topic topic = Topic.get(id)
         Subscription subscription = new Subscription(user: session.user, topic: topic)
-        if (subscription.save()) {
-            render "save successful"
-        } else {
-            render "failure"
-        }
+        if (subscription.save())
+            render("success")
+        else
+            render("error")
+
     }
 
     def delete(Integer id) {
-        Subscription subscription = Subscription.load(id)
-        if (subscription != null) {
-            subscription.delete()
-            render "deleted"
+        Subscription subscription = Subscription.get(id)
+        if (subscription) {
+            Subscription.deleteAll(subscription)
+            render("Success")
+            render (view:'/login/index')
         } else {
-            render "failure"
+            render("Error")
         }
+
     }
 
     def update(Integer id, String serious) {
@@ -29,6 +32,8 @@ class SubscriptionController {
         if (subscription != null) {
             subscription.save()
             render "success"
+            render (view:'/login/index')
+
         } else {
             render "errors"
         }
