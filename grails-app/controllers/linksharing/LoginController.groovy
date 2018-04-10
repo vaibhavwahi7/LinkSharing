@@ -36,6 +36,7 @@ class LoginController {
         if (user != null) {
 
             if (user.active) {
+
                 session.user = user
                 if(user.admin==true)
                 {
