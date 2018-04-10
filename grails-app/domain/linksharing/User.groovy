@@ -58,12 +58,21 @@ class User {
 //            and email invite of topic.
 
 
-    List getSubscribedTopic() {
-        List<Topic> topicList = []
-        this.subscriptions.each {
-            topicList.add(it.topic)
+//    List getSubscribedTopic() {
+//        List<Topic> topicList = []
+//        this.subscriptions.each {
+//            topicList.add(it.topic)
+//        }
+//        return topicList
+//    }
+
+    List<Topic> getSubscribedTopics() {
+        Subscription.createCriteria().list {
+            projections {
+                property('topic')
+            }
+            eq('user', this)
         }
-        return topicList
     }
 
     Integer getScore(Resource resource) {
