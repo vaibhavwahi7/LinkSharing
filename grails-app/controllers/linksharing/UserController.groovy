@@ -2,6 +2,7 @@ package linksharing
 
 import co.linksharing.ResourceSearchCo
 import co.linksharing.SearchCO
+import co.linksharing.util.TopicSearchCO
 import viewObject.linksharing.TopicVO
 
 
@@ -62,25 +63,36 @@ class UserController {
 
     }
 
-    def profileAction(ResourceSearchCo resourceSearchCO)
-    {
-            User user = User.get(resourceSearchCO.id)
-            if (session.user) {
-                if (!(session.user.admin || (session.user.equals(User.load(resourceSearchCO.id))))) {
-                    resourceSearchCO.visibility = Visibility.PUBLIC
-                }
-
-            } else {
+    def profileAction(ResourceSearchCo resourceSearchCO) {
+        User user = User.get(resourceSearchCO.id)
+        if (session.user) {
+            if (!(session.user.admin || (session.user.equals(User.load(resourceSearchCO.id))))) {
                 resourceSearchCO.visibility = Visibility.PUBLIC
             }
 
-            List<Resource> resources = Resource.search(resourceSearchCO).list()
-            render view: 'profile', model: [user: user, resources: resources]
-
+        } else {
+            resourceSearchCO.visibility = Visibility.PUBLIC
         }
+
+        List<Resource> resources = Resource.search(resourceSearchCO).list()
+        render view: 'profile', model: [user: user, resources: resources]
+
     }
 
 
+    def topics(Long id) {
+        TopicSearchCO co = new TopicSearchCO(id: id)
+        User user = User.get(session.user?.id)
+        if (session.user) {
+            if (!(session.user.admin || user == User.get(id))) {
+                co.visibility = Visibility.PUBLIC
+            }
+        } else {
+            co.visibility = Visibility.PUBLIC
+        }
+        List<TopicVO> topicVOs = TopicService.search(co)
+        render(template: "/topic/list", model: [topics: topicVOs])
+    }
 
 
-
+}
