@@ -37,6 +37,10 @@ class LoginController {
 
             if (user.active) {
                 session.user = user
+                if(user.admin==true)
+                {
+                    render("Hi from admin")
+                }
                 forward(controller: 'resource', view: 'index')
 
             } else {
