@@ -1,6 +1,7 @@
 package linksharing
 
 import co.linksharing.ResourceSearchCo
+import dto.linksharing.EmailDTO
 
 class TopicController {
 
@@ -107,6 +108,17 @@ class TopicController {
     }
 
 
+    def invite(Integer id, String emailId) {
 
+        if (Topic.get(id) && User.findByEmailId(emailId)) {
+            EmailDTO emailDTO = new EmailDTO(to: params.emailId, subject: "invitation for Topic Subscription",
+                    from: "rg488592@gmail.com", linkId: topic.id, content: "your new subscription")
+            println(emailDTO.properties)
+
+            emailService.sendInvitation(emailDTO)
+
+        } else
+            flash.error = "User Not Found"
+    }
 
 }
