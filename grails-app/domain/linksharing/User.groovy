@@ -22,7 +22,6 @@ class User {
     Date dateCreated
     Date lastUpdated
 
-
     static mapping = { sort id: 'desc' }
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItem: ReadingItem, resources: Resource, resourceRating: ResourceRating]
