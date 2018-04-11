@@ -20,6 +20,7 @@ apply plugin:"org.grails.grails-web"
 apply plugin:"asset-pipeline"
 apply plugin:"org.grails.grails-gsp"
 
+
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
@@ -27,6 +28,8 @@ repositories {
 
 dependencies {
 
+    compile 'org.grails.plugins:mail:2.0.0'
+    compile 'org.grails.plugins:quartz:2.0.13'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
@@ -67,7 +70,7 @@ bootRun {
     addResources = true
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
-    systemProperty 'server.port', '8081'
+    systemProperty 'server.port', '8080'
 }
 
 tasks.withType(Test) {
