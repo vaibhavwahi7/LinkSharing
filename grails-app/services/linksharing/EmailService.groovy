@@ -28,7 +28,7 @@ class EmailService {
     }
 
 
-    def sendUnreadResourcesEmail(List<User> users, List<Resource> resourceList) {
+    def sendUnreadResourcesMail(User user, List<Resource> unreadResources) {
 
     }
 }
