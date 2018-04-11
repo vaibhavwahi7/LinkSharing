@@ -3,10 +3,29 @@ package linksharing
 import co.linksharing.ResourceSearchCo
 import co.linksharing.SearchCO
 import co.linksharing.util.TopicSearchCO
+import dto.linksharing.EmailDTO
 import viewObject.linksharing.TopicVO
 
 
 class UserController {
+
+    EmailService emailService
+    def forgotPassword(String emailId) {
+        User user = User.findByEmail(emailId)
+        if (user && user.active) {
+
+            String newPassword = new Util().getRandomPassword()
+            EmailDTO emailDTO = new EmailDTO(to: emailId, subject: "For LinkSharing Password", from: "rg488592@gmail.com", content: "hey Therer your New Password : ${newPassword}")
+
+            emailService.sendMail(emailDTO)
+
+            flash.message = "password sent"
+            render(" New Password Is Sent To Registered Email Id")
+        } else {
+            render("Invalid email id")
+        }
+    }
+
 
     def index() {
         if (session.user) {
@@ -52,6 +71,11 @@ class UserController {
         redirect(action: 'index')
 
 
+    }
+
+    def updatePassword()
+    {
+       render(view:'updatePassword')
     }
 
 //    def getSubscribedTopic() {
