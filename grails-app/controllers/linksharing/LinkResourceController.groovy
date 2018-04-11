@@ -9,29 +9,19 @@ class LinkResourceController extends ResourceController{
 //            user should redirected to the dashboard, successful save should set flash.message.
 
 
-    def save(LinkResource resource) {
-        User user = session.user
-        resource.user = user
-        if (resource.save(flush: true)) {
-            addToReadingItems(resource)
-            flash.message = "Resource saved Successfully"
-        } else {
-            flash.error = "Error saving resource"
-        }
-        redirect(controller: "login", action: "index")
-    }
 
-    def saveLink(String link,String description,String topic) {
+    def save(String url,String description,String topic) {
         Topic topic1=Topic.findByName(topic)
-        Resource resource=new LinkResource(url:link,description:description,topic:topic1,user:session.user)
+        Resource resource=new LinkResource(url:url,description:description,topic:topic1.id,user:session.user)
 
         if(resource.save())
         {
+
             render "saved successfully"
         }
         else
         {
-
+         println resource.errors.allErrors
         }
 
 
