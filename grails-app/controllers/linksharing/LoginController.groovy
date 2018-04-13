@@ -9,15 +9,12 @@ class LoginController {
         render(view: '/login/home', model: [resources1: resources])
     }
 
-
-
 //        if (session.user)
 //            forward(controller: 'user', action: 'index')
 //        else {
 //            if(!flash.error)
 //                render("User not found")
 //        }
-
 
 //    def logout() {
 //        session.invalidate()
@@ -38,8 +35,7 @@ class LoginController {
             if (user.active) {
 
                 session.user = user
-                if(user.admin==true)
-                {
+                if (user.admin == true) {
                     render("Hi from admin")
                 }
                 forward(controller: 'resource', view: 'index')
@@ -75,8 +71,7 @@ class LoginController {
             session.user = user
             forward(controller: 'resource', action: 'index')
 
-        }
-        else {
+        } else {
 
             render(text: "${user.errors.allErrors}")
 //            render flash.error = "User not found"
@@ -114,7 +109,7 @@ class LoginController {
 //                log.info("Admin Saved Successfully")
 //
 //
-//            User normal = new User(email: "vaibhav@gmail.com", password: pass, firstName: "vaibhav", lastName: "wahi", userName: 'vaibhav',admin: false, active: true)
+//            User norma    l = new User(email: "vaibhav@gmail.com", password: pass, firstName: "vaibhav", lastName: "wahi", userName: 'vaibhav',admin: false, active: true)
 //            normal.validate()
 //            log.error("error: ${normal.errors.getFieldErrors()}")
 //            normal.save(flush: true)
@@ -124,7 +119,7 @@ class LoginController {
 //    }
 
 
-    def editSave(String firstName,String lastName,String userName,String email) {
+    def editSave(String firstName, String lastName, String userName, String email) {
         User user = User.get(session.user.id)
 
         if (user) {
@@ -157,4 +152,7 @@ class LoginController {
 
     }
 
+    def postRating() {
+
+    }
 }

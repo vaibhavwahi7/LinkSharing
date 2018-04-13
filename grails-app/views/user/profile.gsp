@@ -1,72 +1,46 @@
+%{--<%@ page contentType="text/html;charset=UTF-8" %>--}%
+%{--<html>--}%
+%{--<head>--}%
+    %{--<title></title>--}%
+    %{--<meta name="layout" content="main"/>--}%
+    %{--<script>--}%
+        %{--$(document).ready(function () {--}%
+            %{--$.ajax({--}%
+                %{--url: "/user/topics",--}%
+                %{--data: {--}%
+                    %{--id: $('#userId').val()--}%
+                %{--},--}%
+                %{--success: function (result) {--}%
+                    %{--$('#topicsPanel').html(result);--}%
+                %{--}--}%
+            %{--});--}%
+
+            %{--$.ajax({--}%
+                %{--url: "/user/subscriptions",--}%
+                %{--data: {id: $("#userId").val()},--}%
+                %{--success: function (result) {--}%
+                    %{--$('#subscribedTopics').html(result)--}%
+                %{--}--}%
+            %{--});--}%
+
+
+        %{--});--}%
+    %{--</script>--}%
+%{--</head>--}%
+
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title></title>
-    <meta name="layout" content="main"/>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: "/user/topics",
-                data: {
-                    id: $('#userId').val()
-                },
-                success: function (result) {
-                    $('#topicsPanel').html(result);
-                }
-            });
+    <meta name="layout" content="main">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            $.ajax({
-                url: "/user/subscriptions",
-                data: {id: $("#userId").val()},
-                success: function (result) {
-                    $('#subscribedTopics').html(result)
-                }
-            });
-
-
-        });
-    </script>
 </head>
-
 <body>
-<div class="container">
-    <div class="col-md-5">
-        <g:render template="show" model="[user: user]"></g:render>
-        <g:hiddenField name="userId" value="${user.id}"/>
-        <br>
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">Topics</div>
-
-            <div class="panel-body">
-                <div id="topicsPanel"></div>
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">Subscriptions</div>
-
-            <div id="12" class="panel-body">
-                <div id="subscribedTopics"></div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-7">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Posts</div>
-
-            <div class="panel-body">
-                <g:each in="${resources}" var="resource">
-                    <g:render template="/resource/show" model="[resource: resource]"/>
-                </g:each>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
+<g:render template="/resource/edit"></g:render>
 </body>
 </html>

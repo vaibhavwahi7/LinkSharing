@@ -82,7 +82,8 @@ class Cust_TagLib {
 
 
     String createHtmlStringForTrendingTopic(List<TopicVO> topicVO) {
-        getGroovyPageRenderer().render(view: '/user/trend', model: [topic1: topicVO])
+//        getGroovyPageRenderer().render(view: '/user/trend', model: [topic1: topicVO])
+        g.render(view: '/user/trend', model: [topic1: topicVO])
     }
 
     def trending = { attr, body ->
@@ -105,7 +106,7 @@ class Cust_TagLib {
     }
 
     def userImage = { attrs, body ->
-        out << "<img src='${createLink(controller: 'login', action: 'fetchProductImage', params: [userId: attrs.id])}' " +
-                " height='${attrs.height}' width='${attrs.width}'>"
+        out << "<img src='${createLink(controller: 'login', action: 'fetchProductImage', params: [userId: attrs?.id])}' " +
+                " height='${attrs.height}' width='${attrs?.width}'>"
     }
 }

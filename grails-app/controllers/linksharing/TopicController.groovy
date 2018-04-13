@@ -55,15 +55,12 @@ class TopicController {
         Topic topic = new Topic()
 
         topic.name = text
-
-        println(visibility)
         if (visibility == "public") {
             topic.visibility = Visibility.PUBLIC
         } else if (visibility == "private") {
             topic.visibility = Visibility.PRIVATE
 
         }
-        topic.createdBy = session.user
         if (topic.save()) {
             flash.message = "Saved"
 
@@ -106,19 +103,36 @@ class TopicController {
         render topic
 
     }
+    def changeVisibility() {
+        Topic topic = Topic.findById(params.id)
+        println(params.id)
+        topic.visibility = params.visibility
 
-
-    def invite(Integer id, String emailId) {
-
-        if (Topic.get(id) && User.findByEmail(emailId)) {
-            EmailDTO emailDTO = new EmailDTO(to: params.emailId, subject: "invitation for Topic Subscription",
-                    from: "rg488592@gmail.com", linkId: topic.id, content: "your new subscription")
-            println(emailDTO.properties)
-
-            emailService.sendInvitation(emailDTO)
-
-        } else
-            flash.error = "User Not Found"
+        if (topic.save(flush: true)) {
+            println ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> save validated"
+            log.info("Seriousness Changed : $topic")
+            redirect (controller:'login',view: 'home')
+        } else {
+            println ">>>>>>>>>>>>>>>>>>>>>. save invalidated"
+            log.error("Unable to Change Seriousness : $topic")
+            topic.errors.allErrors.each { println it }
+            redirect (controller:'login',view: 'home')
+        }
     }
+
+
+//
+//    def invite(Integer id, String emailId) {
+//
+//        if (Topic.get(id) && User.findByEmail(emailId)) {
+//            EmailDTO emailDTO = new EmailDTO(to: params.emailId, subject: "invitation for Topic Subscription",
+//                    from: "rg488592@gmail.com", linkId: topic.id, content: "your new subscription")
+//            println(emailDTO.properties)
+//
+//            emailService.sendInvitation(emailDTO)
+//
+//        } else
+//            flash.error = "User Not Found"
+//    }
 
 }

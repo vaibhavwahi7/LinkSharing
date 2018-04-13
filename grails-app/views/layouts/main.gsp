@@ -35,23 +35,24 @@
         Link Sharing
     </a>
 
-    <g:if test="${session.user != null}">
+    <g:if test="${session?.user}">
         <div class="dropdown pull-right">
             <a href="#" class="btn dropdown-toggle pull-right " data-toggle="dropdown" style="margin-left: 30px;">
-                ${session.user.userName}
+                ${session?.user?.userName}
                 <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li class="dropdown-header"></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="${createLink(controller: 'user', action: 'updatePassword')}">Users</a></li>
+                <li><a href="${createLink(controller: 'user', action: 'profile')}">Profile</a></li>
+                <li><a href="${createLink(controller: 'user', action: 'profile')}">Users</a></li>
                 <li><a href="${createLink(controller: 'topic', action: 'show')}">Topic</a></li>
-                <li><a href="#">Posts</a></li>
-                <li><g:link controller="login" action="logout" method="POST">Logout</g:link></li>
+                <li><a href="${createLink(controller: 'login', action: 'postRating')}">Posts</a></li>
+                <li><g:link controller="login" action="logout">Logout</g:link>
+                </li>
             </ul>
         </div>
 
         <div class="pull-right">
-            <ls:userImage id="${session.user.id}" height="40px" width="40px"></ls:userImage>
+            <ls:userImage id="${session?.user?.id}" height="40px" width="40px"></ls:userImage>
             %{--<img src="${createLink(controller: 'login', action: 'fetchProductImage')}" style="width:30px;height:30px "/>--}%
         </div>
 
@@ -76,7 +77,7 @@
         </button>
 
         <div class="input-group add-on pull-right">
-            <g:form controller="resource" action="searchResource">
+            <g:form controller="Search" action="index">
                 <input placeholder="Search" name="topic" type="text">
 
                 <div class="input-group-btn pull-right">
@@ -120,9 +121,9 @@
                                         </div>
 
                                         <div class="col-sm-10">
-                                            <span>${session.user.userName} &nbsp;&nbsp;&nbsp;&nbsp;<small
-                                                    class="text-muted">@a${session.user.userName}  5min</small>
-                                                <a href="#" class="pull-right">${session.user.topics.name}</a>
+                                            <span>${session?.user?.userName} &nbsp;&nbsp;&nbsp;&nbsp;<small
+                                                    class="text-muted">@a${session?.user?.userName}  5min</small>
+                                                <a href="#" class="pull-right">${session?.user?.topics?.name}</a>
 
                                                 <p>
                                                     lasjbdjb asjbdashj asjkdbjasd djknasndjk asdnasjknd jkasdjjassajkndjskadjkkjksadjknj
@@ -313,9 +314,8 @@
                                                 <br>
 
                                                 <div>
-                                                    <select style="width: 100%;height: 100%;" name="topic"
-                                                            id="topicLink">
-                                                        <g:each in="${session.user.topics.name}"><option>${it}</option></g:each>
+                                                    <select style="width: 100%;height: 100%;" name="topic" id="topicLink">
+                                                        <g:each in="${session?.user?.topics?.name}"><option>${it}</option></g:each>
 
                                                     </select>
 
@@ -323,8 +323,8 @@
                                                 <br>
 
                                                 <div class="col-sm-12">
-                                                    <div class="col-sm-6"><g:submitButton name="LinkSave"
-                                                                                          class="btn btn-primary">Save</g:submitButton>
+                                                    <div class="col-sm-6">
+                                                        <g:submitButton name="LinkSave" class="btn btn-primary">Save</g:submitButton>
 
                                                         <button class="btn btn-primary pull-right">Cancel</button>
                                                     </div>
@@ -403,7 +403,7 @@
 
                                                 <div>
                                                     <select style="width: 100%;height: 100%;">
-                                                        <g:each in="${session.user.topics.name}"><option>${it}</option></g:each>
+                                                        <g:each in="${session?.user?.topics?.name}"><option>${it}</option></g:each>
                                                     </select>
 
                                                 </div>
@@ -474,7 +474,7 @@
                                                 <div>
                                                     <select style="width: 100%;height: 100%;" name="topicName">
 
-                                                        <g:each in="${session.user.topics.name}">
+                                                        <g:each in="${session?.user?.topics?.name}">
                                                             <option>${it}</option>
                                                         </g:each>
 

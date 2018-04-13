@@ -5,13 +5,15 @@ class LoginCheckInterceptor {
 
     LoginCheckInterceptor() {
 
-        matchAll().excludes(controller: 'login')
+        matchAll()
+                .excludes(controller: 'login')
+                .excludes(controller: 'login', action: 'register')
                 .excludes(controller: 'resource', action: 'show')
                 .excludes(controller: 'topic', action: 'show')
                 .excludes(controller: 'resource', action: 'search')
     }
        boolean before() {
-        if (!session.user) {
+        if (!session?.user) {
 
             redirect(controller: 'login', action: 'index')
             return false

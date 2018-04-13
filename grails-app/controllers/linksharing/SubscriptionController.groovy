@@ -18,9 +18,10 @@ class SubscriptionController {
     def delete(Integer id) {
         Subscription subscription = Subscription.get(id)
         if (subscription) {
-            Subscription.deleteAll(subscription)
+            subscription.discard()
+            subscription.delete(flush:true)
             render("Success")
-            render (view:'/login/index')
+            render(view: '/login/index')
         } else {
             render("Error")
         }
@@ -32,12 +33,28 @@ class SubscriptionController {
         if (subscription != null) {
             subscription.save()
             render "success"
-            render (view:'/login/index')
+            render(view: '/login/index')
 
         } else {
             render "errors"
         }
     }
 
-
+    def changeSeriousness() {
+        Subscription subscription = Subscription.findById(params.id)
+        println(params.id)
+        subscription.seriousness = params.seriousness
+        subscription.user=session.user
+        println ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + subscription
+        if (subscription.save(flush: true)) {
+            println ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> save validated"
+            log.info("Seriousness Changed : $subscription")
+            redirect (controller:'login',view: 'home')
+        } else {
+            println ">>>>>>>>>>>>>>>>>>>>>. save invalidated"
+            log.error("Unable to Change Seriousness : $subscription")
+            subscription.errors.allErrors.each { println it }
+            redirect (controller:'login',view: 'home')
+        }
+    }
 }

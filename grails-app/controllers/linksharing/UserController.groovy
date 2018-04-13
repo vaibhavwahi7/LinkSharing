@@ -88,21 +88,6 @@ class UserController {
 
     }
 
-    def profileAction(ResourceSearchCo resourceSearchCO) {
-        User user = User.get(resourceSearchCO.id)
-        if (session.user) {
-            if (!(session.user.admin || (session.user.equals(User.load(resourceSearchCO.id))))) {
-                resourceSearchCO.visibility = Visibility.PUBLIC
-            }
-
-        } else {
-            resourceSearchCO.visibility = Visibility.PUBLIC
-        }
-
-        List<Resource> resources = Resource.search(resourceSearchCO).list()
-        render view: 'profile', model: [user: user, resources: resources]
-
-    }
 
 
     def topics(Long id) {
@@ -119,7 +104,10 @@ class UserController {
         render(template: "/topic/list", model: [topics: topicVOs])
     }
 
+def profile()
+{
 
+}
 
 
 }

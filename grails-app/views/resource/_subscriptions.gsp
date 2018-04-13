@@ -1,3 +1,4 @@
+<%@ page import="linksharing.Seriousness" %>
 <div class="panel panel-primary" style="margin-bottom: 0">
 
     <div class="panel-heading">
@@ -54,14 +55,22 @@
 
 
 
-                            <select class="pull-right">
-                                <option>Serious</option>
-                                <option>Private</option>
+                            <select class="pull-right" name="updatedSeriousness" id="updateSeriousness"
+                                    onchange="changeSeriousness(${sub.id}, this.value)">
+                                <option class="placeholder" selected disabled
+                                        value="">${sub.seriousness}</option>
+                                <option value="${linksharing.Seriousness.VERYSERIOUS}">Very Serious</option>
+                                <option value="${linksharing.Seriousness.SERIOUS}">Serious</option>
+                                <option value="${linksharing.Seriousness.CASUAL}">Casual</option>
                             </select>
                             <div>
-                                <select class="pull-right">
-                                    <option>Private</option>
-                                    <option>Public</option>
+                                <select class="pull-right" name="updatedVisibility" id="updateVisibility"
+                                        onchange="changeVisibility(${sub.topic.id}, this.value)">
+                                    <option
+                                            value="${sub.topic.visibility.PRIVATE}">PRIVATE
+                                    </option>
+                                    <option value="${sub.topic.visibility.PUBLIC}">PUBLIC</option>
+
                                 </select>
 
                             </div>

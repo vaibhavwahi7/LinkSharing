@@ -14,11 +14,13 @@
 
 <div class="row" style="margin-right: 5%">
         <div class="col-sm-12">
-
+<div class="col-sm-12">
             <g:render template="/user/userLogin"></g:render>
 
+    <div class="col-sm-6 ">
+        <g:render template="/topic/topic"></g:render>
 
-
+    </div>
         <div class="col-sm-6  pull-right">
 
             <div class="panel panel-primary">
@@ -27,6 +29,7 @@
                     <h3 class="panel-title">
                         Edit Profile
                     </h3>
+
                 </div>
 
                 <div class="panel-body">

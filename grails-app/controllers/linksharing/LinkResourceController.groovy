@@ -12,7 +12,8 @@ class LinkResourceController extends ResourceController{
 
     def save(String url,String description,String topic) {
         Topic topic1=Topic.findByName(topic)
-        Resource resource=new LinkResource(url:url,description:description,topic:topic1.id,user:session.user)
+        Resource resource=
+        new LinkResource(url:url,description:description,topic:topic1.id,user:session.user)
 
         if(resource.save())
         {
